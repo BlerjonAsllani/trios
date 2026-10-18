@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f2ec">
+  <title>TRIOS / 3 — Dein ternäres System</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="TRIOS 3 Startseite"><span class="brand-mark" aria-hidden="true">−<b>0</b>+</span><span>TRIOS <em>/ 3</em></span></a>
+    <span class="top-note"><span class="tiny-dot"></span> Lokal auf deinem Mac</span>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">BALANCIERTES TERNÄRSYSTEM</p><h1>Dein OS. Drei Zustände.</h1><p class="intro-copy">Ein kleiner Computer aus −1, 0 und +1. Starte Programme und schau seiner CPU beim Rechnen zu.</p></div>
+      <div class="trit-art" aria-hidden="true"><span>−1</span><span>0</span><span>+1</span><small>DIE BASIS IST DREI.</small></div>
+    </section>
+
+    <section class="controlbar" aria-label="Systemsteuerung">
+      <div class="system-state"><span id="state-dot" class="state-dot"></span><div><strong id="system-status" role="status">Bereit</strong><small id="system-summary">Supervisor geladen</small></div></div>
+      <div class="machine-spec"><span><b>6</b> Trit / Wort</span><span><b>729</b> Speicherwörter</span><span><b>−364…+364</b> Wertebereich</span></div>
+      <div class="controls"><button id="toggle-run" class="button primary"><span aria-hidden="true">▶</span> Start</button><button id="step" class="button">Einzelschritt</button><button id="reboot" class="button icon-button" aria-label="System neu starten" title="Neu starten">↻</button></div>
+    </section>
+
+    <div class="workspace">
+      <section class="panel terminal-panel">
+        <div class="panel-heading dark-heading"><div><span class="panel-index">01</span><h2>Konsole</h2></div><button id="clear-terminal" class="text-button" title="Konsolenausgabe leeren">Leeren <span aria-hidden="true">↗</span></button></div>
+        <div id="terminal-log" class="terminal-log" role="log" aria-label="Konsolenausgabe" aria-live="off"></div>
+        <form id="command-form" class="command-form"><label for="command" class="prompt">trios<span>~</span>❯</label><input id="command" type="text" autocomplete="off" spellcheck="false" aria-label="Konsolenbefehl" placeholder="Tippe help oder run hello …"><button class="enter-button" type="submit" aria-label="Befehl ausführen">↵</button></form>
+        <div class="quick-actions"><span>AUSPROBIEREN</span><button data-command="run hello">Hallo starten <span>↗</span></button><button data-command="run fibonacci">Fibonacci <span>↗</span></button><button data-command="calc -7 * 8">−7 × 8 <span>↗</span></button></div>
+      </section>
+
+      <section class="panel cpu-panel">
+        <div class="panel-heading"><div><span class="panel-index">02</span><h2>CPU-Monitor</h2></div><span id="cpu-mode" class="badge">KERNEL</span></div>
+        <label class="select-label" for="process-select">Beobachteter Prozess</label><select id="process-select" aria-label="Beobachteter Prozess"><option value="boot">Supervisor · Boot</option></select>
+        <div class="register-caption"><span>REGISTER</span><span>243&nbsp; 81&nbsp; 27&nbsp; 9&nbsp; 3&nbsp; 1</span><span>WERT</span></div>
+        <div id="registers" class="registers"></div>
+        <div class="cpu-details"><div><span>Adresse (PC)</span><strong id="pc-value">—</strong></div><div><span>Vorzeichen</span><strong id="sign-value">0</strong></div><div><span>Überlauf</span><strong id="overflow-value">Nein</strong></div></div>
+        <div class="instruction"><span>LETZTER BEFEHL</span><code id="last-instruction">HALT</code></div>
+        <div class="trit-legend"><span><i class="negative">−</i> −1</span><span><i class="zero">0</i> 0</span><span><i class="positive">+</i> +1</span><small>Jede Stelle zählt dreifach.</small></div>
+      </section>
+
+      <section class="panel editor-panel">
+        <div class="panel-heading"><div><span class="panel-index">03</span><h2>Programme</h2></div><span id="editor-note" class="muted-note">Assembler</span></div>
+        <div class="editor-toolbar"><label class="sr-only" for="file-select">Programmdatei öffnen</label><select id="file-select"></select><button id="new-file" class="text-button">+ Neu</button></div>
+        <div class="code-editor"><div id="line-numbers" aria-hidden="true"></div><label class="sr-only" for="source">Programmquelltext</label><textarea id="source" spellcheck="false" wrap="off" aria-label="Programmquelltext"></textarea></div>
+        <div class="editor-footer"><div class="filename-field"><label class="sr-only" for="filename">Dateiname</label><input id="filename" value="hello" autocomplete="off" spellcheck="false" aria-label="Dateiname"><span>.tri</span></div><button id="save-file" class="button small">Speichern</button><button id="run-source" class="button primary small">Ausführen <span aria-hidden="true">↗</span></button></div>
+        <p class="editor-hint">Dezimalzahlen eingeben · intern mit Trits rechnen · <code>SYS 0</code> beendet dein Programm.</p>
+      </section>
+
+      <section class="panel memory-panel">
+        <div class="panel-heading"><div><span class="panel-index">04</span><h2>Speicher</h2></div><span class="muted-note">Wörter aus Trits</span></div>
+        <div class="memory-toolbar"><div class="segmented"><button id="user-memory" class="active">Programm</button><button id="kernel-memory">Kernel</button></div><label for="memory-address">Ab <input id="memory-address" type="number" min="-364" max="353" value="0" step="3" aria-label="Erste angezeigte Speicheradresse"></label></div>
+        <div id="memory-grid" class="memory-grid"></div>
+        <div class="process-heading"><h3>Prozesse</h3><span id="process-count">0 aktiv</span></div>
+        <div id="process-list" class="process-list"><p class="empty-state">Noch kein Programm gestartet.</p></div>
+      </section>
+    </div>
+
+    <details class="guide"><summary><span>Wie funktioniert das?</span><span class="guide-symbol">+</span></summary><div class="guide-content"><div><h3>01 / Trits statt Bits</h3><p>Ein Trit hat drei Zustände: −1, 0, +1. Von rechts nach links stehen die Stellen für 1, 3, 9, 27, 81 und 243. <code>000+0−</code> bedeutet deshalb 9 − 1 = 8.</p></div><div><h3>02 / Dein erster Code</h3><pre>LI a, 8     ; Zahl ins Register a
+ADD a, #5   ; fünf addieren
+SYS 1       ; Ergebnis ausgeben
+SYS 0       ; Programm beenden</pre><p>Im Einzelschritt siehst du auch den Wechsel in den Kernel.</p></div><div><h3>03 / Eine virtuelle Maschine</h3><p>Dein Mac führt die Simulation aus. Bootcode und Systemaufrufhandler laufen als Programme auf der ternären CPU; Speicher, Geräte und Prozesswechsel werden vom Emulator verwaltet.</p><p>Dies ist ein experimentelles Lernbetriebssystem innerhalb von macOS.</p></div></div></details>
+    <footer><span>TRIOS / 3 <b>v0.1</b></span><span>Binäre Hardware. Ternäre Ideen.</span><span id="instruction-count">0 Instruktionen ausgeführt</span></footer>
+  </main>
+  <noscript>Bitte JavaScript aktivieren, um die virtuelle ternäre Maschine auszuführen.</noscript>
+  <script type="module" src="/app.mjs"></script>
+</body>
+</html>
